@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(del \"C:\\\\Users\\\\sofi\\\\AndroidStudioProjects\\\\APP_Gastos\\\\app\\\\src\\\\main\\\\java\\\\com\\\\example\\\\app_gastos\\\\LocalStorage.kt\")",
+      "Bash(del \"C:\\\\Users\\\\sofi\\\\AndroidStudioProjects\\\\APP_Gastos\\\\app\\\\src\\\\main\\\\java\\\\com\\\\example\\\\app_gastos\\\\AcercaDeScreen.kt\")",
+      "Bash(del \"C:\\\\Users\\\\sofi\\\\AndroidStudioProjects\\\\APP_Gastos\\\\app\\\\src\\\\main\\\\java\\\\com\\\\example\\\\app_gastos\\\\SincronizarScreen.kt\")",
+      "Bash(del \"C:\\\\Users\\\\sofi\\\\AndroidStudioProjects\\\\APP_Gastos\\\\app\\\\src\\\\main\\\\java\\\\com\\\\example\\\\app_gastos\\\\network\\\\ApiService.kt\")",
+      "Bash(del \"C:\\\\Users\\\\sofi\\\\AndroidStudioProjects\\\\APP_Gastos\\\\app\\\\src\\\\main\\\\java\\\\com\\\\example\\\\app_gastos\\\\network\\\\RetrofitClient.kt\")"
+    ]
+  }
+}

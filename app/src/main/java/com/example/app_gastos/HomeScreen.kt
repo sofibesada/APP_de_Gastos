@@ -22,7 +22,8 @@ import androidx.compose.ui.unit.sp
 fun HomeScreen(
     onNavigateGastos: () -> Unit,
     onNavigateIngresos: () -> Unit,
-    onNavigateEstadisticas: () -> Unit
+    onNavigateEstadisticas: () -> Unit,
+    onNavigateAcercaDe: () -> Unit
 ) {
     Scaffold { innerPadding ->
         Column(
@@ -67,6 +68,14 @@ fun HomeScreen(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Estadísticas", fontSize = 18.sp)
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = onNavigateAcercaDe,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Mi Perfil", fontSize = 18.sp)
             }
         }
     }

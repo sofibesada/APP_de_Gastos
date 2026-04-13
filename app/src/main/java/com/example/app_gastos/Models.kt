@@ -34,3 +34,19 @@ data class Ingreso(
     val fecha: String,
     val descripcion: String = ""
 )
+
+// Extrae "MM/yyyy" de una fecha "dd/MM/yyyy"
+fun extraerMes(fecha: String): String? =
+    if (fecha.length >= 10) fecha.substring(3, 10) else null
+
+val nombresMeses = mapOf(
+    "01" to "Enero", "02" to "Febrero", "03" to "Marzo", "04" to "Abril",
+    "05" to "Mayo", "06" to "Junio", "07" to "Julio", "08" to "Agosto",
+    "09" to "Septiembre", "10" to "Octubre", "11" to "Noviembre", "12" to "Diciembre"
+)
+
+fun formatearMes(mesAnio: String): String {
+    val numMes = mesAnio.take(2)
+    val anio = mesAnio.takeLast(4)
+    return "${nombresMeses[numMes] ?: numMes} $anio"
+}
