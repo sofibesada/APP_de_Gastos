@@ -38,6 +38,7 @@ import java.util.UUID
 @Composable
 fun AddEditGastoScreen(
     gastoExistente: Gasto?,
+    ingresos: List<Ingreso>,
     onGuardar: (Gasto) -> Unit,
     onBack: () -> Unit
 ) {
@@ -144,18 +145,27 @@ fun AddEditGastoScreen(
             Button(
                 onClick = {
                     val montoDouble = monto.trim().toDoubleOrNull()
+                    val fechaTrim = fecha.trim()
+                    val mesFecha = extraerMes(fechaTrim)
+                    val tieneIngresoDelMes = mesFecha != null && ingresos.any {
+                        extraerMes(it.fecha) == mesFecha
+                    }
                     when {
                         montoDouble == null || montoDouble <= 0 ->
                             errorMensaje = "Ingresá un monto válido mayor a 0"
-                        fecha.isBlank() ->
+                        fechaTrim.isBlank() ->
                             errorMensaje = "La fecha es obligatoria"
+                        mesFecha == null ->
+                            errorMensaje = "El formato de fecha debe ser dd/MM/yyyy"
+                        !tieneIngresoDelMes ->
+                            errorMensaje = "No tenés ingresos en ${formatearMes(mesFecha)}. Primero registrá un ingreso para ese mes."
                         else -> {
                             onGuardar(
                                 Gasto(
                                     id = gastoExistente?.id ?: UUID.randomUUID().toString(),
                                     monto = montoDouble,
                                     categoria = categoria,
-                                    fecha = fecha.trim(),
+                                    fecha = fechaTrim,
                                     descripcion = descripcion.trim()
                                 )
                             )

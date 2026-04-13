@@ -227,6 +227,84 @@ fun EstadisticasScreen(
                 }
             }
 
+            // Balance por mes
+            val mesesUnicos = (gastos.mapNotNull { extraerMes(it.fecha) } +
+                               ingresos.mapNotNull { extraerMes(it.fecha) })
+                .distinct()
+                .sortedWith(compareBy({ it.takeLast(4) }, { it.take(2) }))
+
+            if (mesesUnicos.isNotEmpty()) {
+                Text("Balance por Mes", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+
+                mesesUnicos.forEach { mes ->
+                    val ingresosDelMes = ingresos.filter { extraerMes(it.fecha) == mes }.sumOf { it.monto }
+                    val gastosDelMes = gastos.filter { extraerMes(it.fecha) == mes }.sumOf { it.monto }
+                    val sobrante = ingresosDelMes - gastosDelMes
+
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = if (sobrante >= 0)
+                                MaterialTheme.colorScheme.primaryContainer
+                            else
+                                MaterialTheme.colorScheme.errorContainer
+                        )
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            Text(
+                                formatearMes(mes),
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 16.sp
+                            )
+                            HorizontalDivider()
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text("Ingresos:")
+                                Text(
+                                    "+ $ %.2f".format(ingresosDelMes),
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text("Gastos:")
+                                Text(
+                                    "- $ %.2f".format(gastosDelMes),
+                                    color = MaterialTheme.colorScheme.error
+                                )
+                            }
+                            HorizontalDivider()
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    if (sobrante >= 0) "Te sobró:" else "Te faltó:",
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 16.sp
+                                )
+                                Text(
+                                    "$ %.2f".format(sobrante),
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 18.sp,
+                                    color = if (sobrante >= 0)
+                                        MaterialTheme.colorScheme.primary
+                                    else
+                                        MaterialTheme.colorScheme.error
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
             Spacer(modifier = Modifier.height(16.dp))
         }
     }
