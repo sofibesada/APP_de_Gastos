@@ -62,7 +62,6 @@ fun AppNavigation() {
         composable("addGasto") {
             AddEditGastoScreen(
                 gastoExistente = null,
-                ingresos = ingresos,
                 onGuardar = { gasto ->
                     gastos.add(gasto)
                     navController.popBackStack()
@@ -76,7 +75,6 @@ fun AppNavigation() {
             val gasto = gastos.find { it.id == id }
             AddEditGastoScreen(
                 gastoExistente = gasto,
-                ingresos = ingresos,
                 onGuardar = { updatedGasto ->
                     val index = gastos.indexOfFirst { it.id == updatedGasto.id }
                     if (index != -1) gastos[index] = updatedGasto
