@@ -75,7 +75,7 @@ fun HomeScreen(
                 onClick = onNavigateAcercaDe,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Mi Perfil", fontSize = 18.sp)
+                Text("Integrantes", fontSize = 18.sp)
             }
         }
     }
