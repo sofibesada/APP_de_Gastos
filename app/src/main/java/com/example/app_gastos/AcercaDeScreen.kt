@@ -19,10 +19,8 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -34,20 +32,28 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-data class Integrante(val nombre: String, val color: Color)
-
-val integrantes = listOf(
-    Integrante("Navello Angelina",   Color(0xFF7986CB)),
-    Integrante("Torres Tomas",       Color(0xFF4DB6AC)),
-    Integrante("Lorenzo Azel",       Color(0xFFFFB74D)),
-    Integrante("Martinez Victoria",  Color(0xFFE57373)),
-    Integrante("Telechea Santino",   Color(0xFF81C784)),
-    Integrante("Besada Sofia",       Color(0xFFBA68C8))
-)
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AcercaDeScreen(onBack: () -> Unit) {
+
+    val nombres = listOf(
+        "Navello Angelina",
+        "Torres Tomas",
+        "Lorenzo Axel",
+        "Martinez Victoria",
+        "Telechea Santino",
+        "Besada Sofia"
+    )
+
+    val colores = listOf(
+        Color(0xFF7986CB),
+        Color(0xFF4DB6AC),
+        Color(0xFFFFB74D),
+        Color(0xFFE57373),
+        Color(0xFF81C784),
+        Color(0xFFBA68C8)
+    )
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -71,11 +77,14 @@ fun AcercaDeScreen(onBack: () -> Unit) {
             Text(
                 text = "Equipo de trabajo",
                 fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = Color.Gray,
                 modifier = Modifier.padding(bottom = 4.dp)
             )
 
-            integrantes.forEach { integrante ->
+            nombres.forEachIndexed { index, nombre ->
+                val color = colores[index]
+                val inicial = nombre.first().uppercaseChar().toString()
+
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
@@ -87,28 +96,25 @@ fun AcercaDeScreen(onBack: () -> Unit) {
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
-                        // Avatar circular con inicial
                         Box(
                             modifier = Modifier
                                 .size(48.dp)
-                                .background(integrante.color, CircleShape),
+                                .background(color, CircleShape),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = integrante.nombre.last().uppercaseChar().toString(),
+                                text = inicial,
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = Color.White
                             )
                         }
 
-                        Column {
-                            Text(
-                                text = integrante.nombre,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Medium
-                            )
-                        }
+                        Text(
+                            text = nombre,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Medium
+                        )
                     }
                 }
             }
